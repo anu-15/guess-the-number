@@ -42,7 +42,7 @@
                         <div class="puzzle-main-body d-grid gap-4">
                             <button
                                 class="btn btn-sm bg-warning play-btn text-bg-primary p-2 fs-4 semibold shadow border border-2"
-                                type="button" data-parent="puzzle-body" data-show="play-game">Play</button>
+                                type="button" data-parent="puzzle-body" data-show="play-game" autofocus>Play</button>
                             <button
                                 class="btn btn-sm bg-info help-btn text-bg-primary p-2 fs-4 semibold shadow border border-2"
                                 type="button" data-bs-toggle="modal" data-bs-target="#helpModal">How to Play?</button>
@@ -55,14 +55,14 @@
                             <div class="col-auto">
                                 <select class="form-select form-select-sm gap-4 d-inline border border-primary"
                                     id="levelSelect" aria-label="Select level">
-                                    <option value=10>Level 1 to 10</option>
-                                    <option value=20>Level 1 to 20</option>
-                                    <option value=30>Level 1 to 30</option>
+                                    <option value=10 data-chance="3" selected>Level 1 to 10</option>
+                                    <option value=20 data-chance="4">Level 1 to 20</option>
+                                    <option value=30 data-chance="5">Level 1 to 30</option>
                                 </select>
                             </div>
                             <div class="col-6 form-user-input mb-3 d-block">
                                 <input type="number" class="form-control border border-danger" id="guessnum"
-                                    name="guessnum" placeholder="Enter the number" max=10 min=1>
+                                    name="guessnum" placeholder="Enter the number" max=10 min=1 required>
                             </div>
                         </div>
                         <div class="msg text-danger"></div>
@@ -76,12 +76,12 @@
                             </p>
                             <p class="no-chances d-none text-danger">Sorry! No chances left</p>
                         </div>
-                        <div class="number-history d-block m-2">
+                        <div class="number-history d-block m-2 text-danger">
 
                         </div>
-                        <button class="btn bg-dark p-2 text-dark bg-opacity-25 menu-btn m-4" type="reset"
+                        <button class="btn bg-dark p-2 text-dark bg-opacity-25 menu-btn mx-4 my-2" type="reset"
                             data-parent="play-game" data-show="puzzle-body">Main Menu</button>
-                        <button class="btn bg-dark p-2 text-dark bg-opacity-25 play-btn play-again-btn m-4" type="button"
+                        <button class="btn bg-dark p-2 text-dark bg-opacity-25 play-btn play-again-btn mx-4 my-2" type="button"
                         data-parent="puzzle-body" data-show="play-game">Play Again?</button>
                     </form>
                 </div>
@@ -113,117 +113,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-      <link rel="stylesheet" href="css/style.css">
-      <link rel="stylesheet" href="css/css/bootstrap.min.css">
-      <script src="Js/bootstrap.min.js"></script>
-      <script src="Js/jquery.validate.min.js"></script>
-      <script type="text/javascript" src="Js/index.js"></script>
-      <link rel="icon" href="images/number-puzzle.png" type="image/x-icon">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=ADLaM+Display&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <title>Guess the number</title>
-   </head>
-   <body>
-      <div class="container">
-         <header class="mx-auto p-3">
-            <h1 class="text-center">Guess the Number</h1>
-         </header>
-         <div class="row justify-content-center mx-auto">
-            <div class="game-body col-6 p-2 bg-body-tertiary rounded text-end">
-               <audio id="background-music" src="music/background-music.mp3" type="audio/mp3" autoplay="true"
-                  loop="loop" data-link="music" data-status="off"></audio>
-               <img src="images/bg-music-off.png" class="bg-music cursor-pointer mx-2 volume-controls"
-                  alt="Background music" data-off="images/bg-music-off.png" data-on="images/bg-music-on.png"
-                  data-link="music" data-status="off" title="Background Music">
-               
-               <img src="images/sound-effect-off.png" class="sound-effect-music cursor-pointer mx-2 volume-controls"
-                  alt="Sound Effect" data-off="images/sound-effect-off.png" data-on="images/sound-effect-on.png"
-                  data-link="sound" data-status="off" title="Sound Effects">
-               <div class="puzzle-body p-4">
-                  <form class="main-form">
-                     <div class="puzzle-main-body d-grid gap-4">
-                        <button
-                           class="btn btn-sm bg-warning play-btn text-bg-primary p-2 fs-4 semibold shadow border border-2"
-                           type="button" data-parent="puzzle-body" data-show="play-game">Play</button>
-                        <button
-                           class="btn btn-sm bg-info help-btn text-bg-primary p-2 fs-4 semibold shadow border border-2"
-                           type="button" data-bs-toggle="modal" data-bs-target="#helpModal">How to Play?</button>
-                     </div>
-                  </form>
-               </div>
-               <div class="play-game p-3 mb-5 bg-body-tertiary rounded text-center d-none">
-                  <form class="play-form">
-                     <div class="row g-4 align-items-baseline justify-content-center le">
-                        <div class="col-auto">
-                           <select class="form-select form-select-sm gap-4 d-inline border border-primary"
-                              id="levelSelect" aria-label="Select level">
-                              <option value=10>Level 1 to 10</option>
-                              <option value=20>Level 1 to 20</option>
-                              <option value=30>Level 1 to 30</option>
-                           </select>
-                        </div>
-                        <div class="col-6 form-user-input mb-3 d-block">
-                           <input type="number" class="form-control border border-danger" id="guessnum"
-                              name="guessnum" placeholder="Enter the number" max=10 min=1>
-                        </div>
-                     </div>
-                     <div class="msg text-danger"></div>
-                     <div class="chances p-2">
-                        <p class="chance fw-medium">You have left with <span
-                           class="num-of-chance text-danger"></span>
-                           chances
-                        </p>
-                        <p class="no-chances d-none text-danger">Sorry! No chances left</p>
-                     </div>
-                     <div class="number-history d-block">
-                     </div>
-                     <button class="btn bg-success-subtle menu-btn " type="reset" data-parent="play-game"
-                        data-show="puzzle-body">Main Menu</button>
-                  </form>
-               </div>
-            </div>
-         </div>
-         
-         <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-               <div class="modal-content">
-                  <div class="modal-header">
-                     <h1 class="modal-title fs-5" id="exampleModalLabel">Help</h1>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                     <ul>
-                        <li>You need to enter a number</li>
-                        <li>If the number you entered is wrong, then you loose</li>
-                        <li>For every wrong answer, you will be notified</li>
-                        <li>If the number you entered is correct, then you win</li>
-                     </ul>
-                  </div>
-                  <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </body>
-</html> -->
