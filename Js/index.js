@@ -16,21 +16,21 @@ $(document).ready(function () {
         allButtons: $("button"),
         levelSelect: $("#levelSelect"),
         volumeControls: $(".volume-controls"),
-        bgMusic : $("#background-music"),
+        bgMusic: $("#background-music"),
         soundEffects: $("#sound-effect"),
         playForm: $('.play-form'),
         levelInput: $(".level-input"),
         guessNumber: $("#guessnum"),
-        
+
         audioControl: function (dataset) {
             return $(`audio[data-link=${dataset}]`);
         },
         hearts: function (chance) {
             return $(`.heart[data-chance=${chance}]`);
         },
-        guessnumError: function(){
+        guessnumError: function () {
             return $('#guessnum-error');
-        } 
+        }
     }
 
     //1st parameter should be hide class and 2nd should be showclass
@@ -40,7 +40,7 @@ $(document).ready(function () {
     }
 
     // To show the numbers entered till now by the user
-    const numHistory = function(guess, message) {
+    const numHistory = function (guess, message) {
         const enterednumbers = document.createElement("li");
         if (guess) {
             enterednumbers.innerHTML = `<span class="text-primary font-weight-bold">Correct number was: ${guessnumber}</span>`;
@@ -86,24 +86,25 @@ $(document).ready(function () {
         DOM.heart.removeClass("one-chance-less").addClass("bg-animate");
         DOM.guessNumber.removeClass('border border-danger error');
         DOM.guessnumError().hide();
-        DOM.levelSelect.prop('selectedIndex',0);
+        DOM.levelSelect.prop('selectedIndex', 0);
     }
 
     const allButtonsClick = function () {
         DOM.bgMusic[0].play();
         DOM.bgMusic[0].volume = 0.1;
+        DOM.soundEffects[0].volume = 0.1;
         if (this.dataset.parent && this.dataset.show) {
             hideShow(`.${this.dataset.parent}`, `.${this.dataset.show}`);
         }
     }
-    
+
     const levelSelectChange = function () {
         DOM.guessNumber.attr('max', this.value);
         DOM.guessNumber.data('level-check', Number.parseInt(this.value));
         guessnumber = Number.parseInt(Math.ceil(Math.random() * this.value));
     }
 
-    const volumeControlsClick =  function () {
+    const volumeControlsClick = function () {
         DOM.audioControl(this.dataset.link).each(function () {
             if (this.dataset.status === 'on') {
                 this.muted = true;
@@ -142,11 +143,11 @@ $(document).ready(function () {
     };
 
     const documentKeypress = function (event) {
-        
+
         if (DOM.playForm.valid() && event.key === "Enter") {
             event.preventDefault();
 
-            const greaterOrSmaller = function(msg){
+            const greaterOrSmaller = function (msg) {
                 DOM.msg.html('');
                 gameSound(true);
                 chance--;
@@ -155,11 +156,11 @@ $(document).ready(function () {
                 numHistory(false, msg);
             }
             // Number entered by user, Math.floor to remove if float number entered
-            userinput = Math.floor(DOM.guessNumber.val());
-            
+            userinput = Math.floor(DOM.guessNumber.val().trim());
+
             // Check if number already not entered
-            if(queue.indexOf(userinput) < 0){
-            // smaller number
+            if (queue.indexOf(userinput) < 0 && userinput > 0) {
+                // smaller number
                 if (userinput < guessnumber) {
                     greaterOrSmaller(`Sorry! The number ${userinput} is smaller than the correct number`);
                 }
@@ -168,7 +169,7 @@ $(document).ready(function () {
                 else if (userinput > guessnumber) {
                     greaterOrSmaller(`Sorry! The number ${userinput} is greater than the correct number`);
                 }
-            
+
                 //When no chances left
                 if (!chance) {
                     DOM.msg.html("<img src='images/fail-img.gif' class='soryimg img-fluid'>");
@@ -186,16 +187,23 @@ $(document).ready(function () {
                 }
 
             }
-            else{
-                DOM.msg.html(`You have already guessed ${userinput}, Guess another number`);
+            else {
+                if (userinput === 0) {
+                    DOM.msg.html(`Please enter the value`);
+                }
+                else {
+                    DOM.msg.html(`You have already guessed ${userinput}, Guess another number`);
+                }
             }
-            
+
             DOM.guessNumber.val('');
         }
 
         //If the number is not within Range, audio will be played
         else if (DOM.guessNumber.hasClass('error')) {
+
             gameSound("alert");
+
         }
     };
 
